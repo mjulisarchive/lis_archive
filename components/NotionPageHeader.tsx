@@ -52,7 +52,16 @@ export function NotionPageHeader({
             .filter(Boolean)}
         </div>
 
-        <DarkModeToggle />
+        <div className='mji-header-rhs'>
+          <DarkModeToggle />
+          <a href='/credits' className='mji-nav-link mji-credits-link'>
+            <svg width='16' height='16' viewBox='0 0 16 16' fill='none' aria-hidden='true'>
+              <circle cx='8' cy='5' r='3' stroke='currentColor' strokeWidth='1.4' />
+              <path d='M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5' stroke='currentColor' strokeWidth='1.4' strokeLinecap='round' />
+            </svg>
+            <span>Credits</span>
+          </a>
+        </div>
       </div>
     </header>
   )

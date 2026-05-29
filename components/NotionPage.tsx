@@ -111,9 +111,28 @@ const Code = dynamic(() =>
   })
 )
 
-const Collection = dynamic(() =>
+const OriginalCollection = dynamic(() =>
   import('react-notion-x/third-party/collection').then((m) => m.Collection)
 )
+
+function CollectionWithDescription({ block, ctx }: any) {
+  const isBlogPost =
+    block?.type === 'page' && block?.parent_table === 'collection'
+  const description = isBlogPost
+    ? (getPageProperty<string>('Description', block, ctx.recordMap) ||
+        getPageProperty<string>('설명', block, ctx.recordMap) ||
+        '')
+    : ''
+
+  return (
+    <>
+      <OriginalCollection block={block} ctx={ctx} />
+      {isBlogPost && description && (
+        <p className='mji-page-description'>{description}</p>
+      )}
+    </>
+  )
+}
 const Equation = dynamic(() =>
   import('react-notion-x/third-party/equation').then((m) => m.Equation)
 )
@@ -591,7 +610,16 @@ function SiteHeader() {
         <div className='mji-nav-rhs'>
           <HeaderSearch />
         </div>
-        <DarkModeToggle />
+        <div className='mji-header-rhs'>
+          <DarkModeToggle />
+          <a href='/credits' className='mji-nav-link mji-credits-link'>
+            <svg width='16' height='16' viewBox='0 0 16 16' fill='none' aria-hidden='true'>
+              <circle cx='8' cy='5' r='3' stroke='currentColor' strokeWidth='1.4' />
+              <path d='M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5' stroke='currentColor' strokeWidth='1.4' strokeLinecap='round' />
+            </svg>
+            <span>Credits</span>
+          </a>
+        </div>
       </div>
     </header>
   )
@@ -625,15 +653,10 @@ const propertyLastEditedTimeValue = (
 }
 
 const propertyDateValue = (
-  { data, schema, pageHeader }: any,
+  { pageHeader }: any,
   defaultFn: () => React.ReactNode
 ) => {
-  if (pageHeader && schema?.name?.toLowerCase() === 'published') {
-    const publishDate = data?.[0]?.[1]?.[0]?.[1]?.start_date
-    if (publishDate) {
-      return `${formatDate(publishDate, { month: 'long' })}`
-    }
-  }
+  if (pageHeader) return null
   return defaultFn()
 }
 
@@ -651,7 +674,7 @@ const notionRendererComponents: Partial<NotionComponents> = {
   nextLegacyImage: Image,
   nextLink: Link,
   Code,
-  Collection,
+  Collection: CollectionWithDescription,
   Equation,
   Pdf,
   Modal,
