@@ -175,10 +175,42 @@
 .notion-title {
   display: block;
   text-align: center;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.mji-page-description {
+  max-width: 600px;
+  margin: 0 auto 0;
+  padding-bottom: 1em;
+  text-align: center;
+  font-size: 15px;
+  color: inherit;
+  line-height: 1.6;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  white-space: normal;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.light-mode .mji-page-description {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
 }
 
 .notion-collection-row {
   padding-bottom: 1em;
+  margin-bottom: 0;
+  border-bottom: none !important;
+}
+
+.notion-collection-page-properties .notion-collection-row-body {
+  gap: 1em;
+}
+
+/* 날짜 행 완전히 숨기기 */
+.notion-collection-row-property:has(.notion-property-date) {
+  display: none;
 }
 
 .notion-collection-page-properties .notion-collection-column-title {
@@ -500,6 +532,16 @@
   display: flex;
   align-items: center;
   gap: 24px;
+}
+
+.mji-header-rhs {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.mji-credits-link {
+  font-size: 13px;
 }
 
 /* 헤더 우측 공통 버튼 스타일 (홈, 검색, 네비 링크) */
