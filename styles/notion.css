@@ -1290,6 +1290,15 @@ body {
     display: none;
   }
 
+  /* 헤더 불투명 배경 */
+  .mji-header {
+    background: #0a0a0a;
+  }
+
+  .light-mode .mji-header {
+    background: #ffffff;
+  }
+
   /* 라이트 모드 카드 테두리 */
   .light-mode .mji-tl-card {
     border: 0.5px solid rgba(0, 0, 0, 0.08);
